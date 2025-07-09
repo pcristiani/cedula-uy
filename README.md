@@ -21,7 +21,7 @@ Además, puede servirle a cualquiera que quiera aprender cómo se calculan estos
 ## 🌐 Acceso rápido
 
 📎 Accedé a la herramienta directamente desde GitHub Pages:  
-👉 [[https://tuusuario.github.io/documentos-uy/](https://pcristiani.github.io/cedula-uy/)] 
+👉 [[Cédulas](https://pcristiani.github.io/cedula-uy/)] 
 
 ---
 
