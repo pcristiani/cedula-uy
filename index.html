@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+
+<html lang="es">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <title>Cédulas | Pablo Cristiani</title>
+
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+        <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/149/149071.png" type="image/png">
+        
+        <style>
+            * {
+                box-sizing: border-box;
+            }
+
+            body {
+                margin: 0;
+                font-family: 'Montserrat', sans-serif;
+                background: linear-gradient(120deg, #d6e0f0, #f5f9ff);
+                color: #333;
+            }
+
+            .container {
+                max-width: 1200px;
+                margin: auto;
+                padding: 2rem;
+            }
+
+            h1, h2 {
+                text-align: center;
+                color: #2c3e50;
+            }
+
+            .row {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 1rem;
+                justify-content: center;
+            }
+
+            .col-6 {
+                flex: 1 1 48%;
+            }
+
+            @media (max-width: 768px) {
+                .col-6 {
+                    flex: 1 1 100%;
+                }
+            }
+
+            .card {
+                background: white;
+                padding: 2rem;
+                border-radius: 12px;
+                box-shadow: 0 0 20px rgba(0,0,0,0.1);
+                margin-bottom: 2rem;
+            }
+
+            .card h2 {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 10px;
+            }
+
+            .acciones {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                margin-top: 1rem;
+            }
+
+            button {
+                background: #3498db;
+                color: white;
+                border: none;
+                padding: 0.75rem 1.5rem;
+                border-radius: 6px;
+                font-size: 16px;
+                cursor: pointer;
+                transition: background 0.3s;
+            }
+
+            button:hover {
+                background: #2980b9;
+            }
+
+            input {
+                padding: 0.5rem;
+                font-size: 16px;
+                width: 100%;
+                max-width: 300px;
+                margin-bottom: 1rem;
+                border-radius: 6px;
+                border: 1px solid #ccc;
+                text-align: center;
+            }
+
+            .resultado {
+                font-size: 24px;
+                font-weight: bold;
+                margin-top: 1rem;
+                color: #27ae60;
+                text-align: center;
+            }
+
+            .explicacion {
+                background: #ecf0f1;
+                padding: 1rem;
+                border-radius: 8px;
+                font-size: 15px;
+                line-height: 1.5;
+            }
+
+            .explicacion p, .explicacion ol {
+                margin: 0.5rem 0;
+            }
+
+            .explicacion strong {
+                color: #34495e;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <h1>Generador y Verificador de Cédulas Uruguayas</h1>
+
+            <div class="row">
+                <div class="card col-6">
+                    <h2>🔢 Generar Cédula</h2>
+                    <div class="acciones">
+                        <button onclick="generarCedula()">Generar</button>
+                        <div id="resultadoCedula" class="resultado"></div>
+                    </div>
+                </div>
+
+                <div class="card col-6">
+                    <h2>🔍 Verificar Cédula</h2>
+                    <div class="acciones">
+                        <input type="text" id="cedulaInput" placeholder="Ej: 1.234.567-8" />
+                        <button onclick="verificarCedula()">Verificar</button>
+                        <div id="verificacionResultado" class="resultado"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>📚 ¿Cómo se calcula el dígito verificador?</h2>
+                <div class="explicacion">
+                    <p>El dígito verificador es el último número de la cédula y se calcula así:</p>
+                    <ol>
+                        <li>Se toman los primeros 7 dígitos.</li>
+                        <li>Se multiplican por: <strong>2, 9, 8, 7, 6, 3, 4</strong> respectivamente.</li>
+                        <li>Se suman los productos.</li>
+                        <li>Se calcula el módulo 10 del resultado.</li>
+                        <li>Si da 0, el dígito es 0. Si no, es <strong>10 - resto</strong>.</li>
+                    </ol>
+                    <p>
+                        Ejemplo:<br>
+                        Cédula base: <strong>1234567</strong><br>
+                        Multiplicación: <strong>1×2 + 2×9 + 3×8 + 4×7 + 5×6 + 6×3 + 7×4</strong><br>
+                        Total = <strong>148</strong><br>
+                        Dígito verificador = <strong>10 - (148 % 10) = 2</strong><br>
+                        Resultado: <strong>1.234.567-2</strong>
+                    </p>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>👨‍💻 Sobre este proyecto</h2>
+                <div class="explicacion">
+                    <p>Esta herramienta fue desarrollada por <strong><a href="https://www.linkedin.com/in/pablo-cristiani-63969021a/" target="_blank" style="color: #2c3e50; text-decoration: none;">Pablo Cristiani</strong> con el objetivo de ser útil tanto para quienes necesitan generar o verificar cédulas uruguayas, como para quienes no sabían cómo se calcula el dígito verificador y ahora pueden aprenderlo.</p>
+                    <p>Es de uso libre y abierto. ¡Compartilo con quien le pueda servir! 🇺🇾</p>
+                    <p style="text-align: center; margin-top: 1rem;">💻 <em>Hecho con HTML, CSS y JavaScript.</em></p>
+                </div>
+            </div>
+
+            <div style="text-align: center; margin-top: 2rem;">
+  <a href="https://www.linkedin.com/in/pablo-cristiani-63969021a/" target="_blank" style="color: #2c3e50; text-decoration: none; font-weight: bold; font-size: 18px; display: inline-flex; align-items: center; gap: 8px;">
+    <img src="https://cdn-icons-png.flaticon.com/512/174/174857.png" alt="LinkedIn" style="width: 24px; height: 24px;">
+    Pablo Cristiani
+  </a>
+</div>
+        </div>
+
+        
+
+        <script>
+            function generarCedula() {
+                const base = [Math.floor(Math.random() * 9) + 1]; // primer dígito de 1 a 9
+                while (base.length < 7) {
+                    base.push(Math.floor(Math.random() * 10)); // los demás de 0 a 9
+                }
+                const mult = [2, 9, 8, 7, 6, 3, 4];
+                const sum = base.reduce((acc, val, i) => acc + val * mult[i], 0);
+                const resto = sum % 10;
+                const digito = resto === 0 ? 0 : 10 - resto;
+
+                const cedulaSinFormato = [...base, digito].join('');
+                const cedulaFormateada = `${cedulaSinFormato.slice(0, 1)}.${cedulaSinFormato.slice(1, 4)}.${cedulaSinFormato.slice(4, 7)}-${cedulaSinFormato.slice(7)}`;
+
+                document.getElementById("resultadoCedula").textContent = cedulaFormateada;
+            }
+
+            function verificarCedula() {
+                const input = document.getElementById("cedulaInput").value.replace(/\D/g, '');
+                if (input.length !== 8) {
+                    document.getElementById("verificacionResultado").textContent = "⚠️ Formato inválido";
+                    document.getElementById("verificacionResultado").style.color = 'red';
+                    return;
+                }
+
+                const numeros = input.split('').map(n => parseInt(n));
+                const base = numeros.slice(0, 7);
+                const digitoIngresado = numeros[7];
+                const mult = [2, 9, 8, 7, 6, 3, 4];
+                const sum = base.reduce((acc, val, i) => acc + val * mult[i], 0);
+                const resto = sum % 10;
+                const digitoEsperado = resto === 0 ? 0 : 10 - resto;
+
+                const mensaje = digitoEsperado === digitoIngresado ? "✅ Cédula válida" : "❌ Cédula inválida";
+                document.getElementById("verificacionResultado").textContent = mensaje;
+                document.getElementById("verificacionResultado").style.color = digitoEsperado === digitoIngresado ? 'green' : 'red';
+            }
+        </script>
+    </body>
+</html>
